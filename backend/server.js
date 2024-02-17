@@ -16,7 +16,7 @@ app.use(express.json());    //to parse the incoming request with JSON payload(fr
 app.use(cookieParser());    //to parse the cookie
 
 app.use("/api/auth", authRoutes);
-app.use("/api/message", messageRoutes);
+app.use("/api/messages", messageRoutes);
 app.use("/api/users", usersRoutes);
 
 // app.get("/", (req, res) => {
@@ -24,6 +24,6 @@ app.use("/api/users", usersRoutes);
 // });
 
 app.listen(PORT, () => {
-    connectToMongoDB();
-    console.log(`Server running on port ${PORT}`);
+	connectToMongoDB();
+	console.log(`Server running on port ${PORT}`);
 })
