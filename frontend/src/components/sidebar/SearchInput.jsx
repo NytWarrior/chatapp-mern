@@ -3,9 +3,11 @@ import { IoSearchSharp } from "react-icons/io5";
 import useConversation from "../../zustand/useConversation";
 import useGetConversations from "../../hooks/useGetConversations";
 import toast from "react-hot-toast";
+import { useAuthContext } from "../../context/AuthContext";
 
 const SearchInput = () => {
 	const [search, setSearch] = useState("");
+	const { authUser } = useAuthContext();
 	const { setSelectedConversation } = useConversation();
 	const { conversations } = useGetConversations();
 
@@ -24,18 +26,25 @@ const SearchInput = () => {
 		} else toast.error("No such user found!");
 	};
 	return (
-		<form onSubmit={handleSubmit} className='flex items-center gap-2'>
-			<input
-				type='text'
-				placeholder='Search…'
-				className='input input-bordered rounded-full'
-				value={search}
-				onChange={(e) => setSearch(e.target.value)}
-			/>
-			<button type='submit' className='btn btn-circle bg-sky-500 text-white'>
-				<IoSearchSharp className='w-6 h-6 outline-none' />
-			</button>
-		</form>
+		<div className='flex items-center gap-3'>
+			<div className={`avatar`}>
+				<div className='w-12 rounded-full'>
+					<img src={authUser.profilePic} alt='user avatar' />
+				</div>
+			</div>
+			<form onSubmit={handleSubmit} className='flex items-center gap-2'>
+				<input
+					type='text'
+					placeholder='Search…'
+					className='input input-bordered rounded-full'
+					value={search}
+					onChange={(e) => setSearch(e.target.value)}
+				/>
+				<button type='submit' className='btn btn-circle bg-sky-500 text-white'>
+					<IoSearchSharp className='w-6 h-6 outline-none' />
+				</button>
+			</form>
+		</div>
 	);
 };
 export default SearchInput;
